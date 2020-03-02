@@ -176,10 +176,16 @@ function rental_price(cars, rentals){
       if (car.id == IDcar) {
         price_time = day*car.pricePerDay;
         price_dist = (element.distance)*car.pricePerKm;
+        price = price_time+price_dist;
+        
+        //STEP 2
+        if (day > 1 && day <= 4) {price*= (1-0.1); }
+        if( day > 4 && day <= 10) {price*= (1-0.3); }
+        if( day > 10) {price*= 0.5; }
+        
         break;
       }
     }
-    price = price_time+price_dist;
     element.price = price;
   });
 
