@@ -166,6 +166,7 @@ function rental_price(cars, rentals){
   let price = 0;
   let price_time = 0;
   let price_dist = 0;
+  let commission = 0
 
   //STEP 1
   rentals.forEach(element => {
@@ -182,11 +183,17 @@ function rental_price(cars, rentals){
         if (day > 1 && day <= 4) {price*= (1-0.1); }
         if( day > 4 && day <= 10) {price*= (1-0.3); }
         if( day > 10) {price*= 0.5; }
-        
+
         break;
       }
     }
     element.price = price;
+
+    //STEP 3
+    commission = price*(0.3);
+    element.commission.insurance = commission*(0.5);
+    element.commission.treasury = day;
+    element.commission.virtuo = commission - element.commission.treasury - element.commission.insurance;
   });
 
 }
