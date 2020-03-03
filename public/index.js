@@ -190,10 +190,17 @@ function rental_price(cars, rentals){
     element.price = price;
 
     //STEP 3
-    commission = price*(0.3);
+    commission = element.price*(0.3);
     element.commission.insurance = commission*(0.5);
     element.commission.treasury = day;
     element.commission.virtuo = commission - element.commission.treasury - element.commission.insurance;
+
+    //STEP 4
+    if (element.options.deductibleReduction) {
+      let additional_charge = day*4;
+      element.price+= additional_charge;
+      element.commission.virtuo += additional_charge;
+    }
   });
 
 }
