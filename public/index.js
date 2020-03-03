@@ -202,9 +202,44 @@ function rental_price(cars, rentals){
       element.commission.virtuo += additional_charge;
     }
   });
-
 }
 
 rental_price(cars,rentals);
-
 console.log(rentals);
+
+function pay_actors(rentals, actors){
+  actors.forEach(actor => {
+    for (let i = 0; i < rentals.length; i++) {
+      const element = rentals[i];
+      if(actor.rentalId == element.id){
+        let payments = actor.payment;
+        payments.forEach(pay => {
+          if (pay.who == 'driver')
+          {
+            pay.amount = element.price;
+          }
+          if (pay.who == 'partner')
+          {
+            pay.amount = element.price - element.commission.virtuo - element.commission.insurance - element.commission.treasury;
+          }
+          if (pay.who == 'insurance')
+          {
+            pay.amount = element.commission.insurance;
+          }
+          if (pay.who == 'treasury')
+          {
+            pay.amount = element.commission.treasury;
+          } 
+          if (pay.who == 'virtuo')
+          {
+            pay.amount = element.commission.virtuo;
+          }          
+        });
+        console.log(payments);
+        break;
+      }      
+    }    
+  });
+}
+
+pay_actors(rentals,actors);
