@@ -162,11 +162,10 @@ console.log(cars);
 console.log(rentals);
 console.log(actors);
 
-function rental_price(cars, rentals){
+function rental_price(){
   let price = 0;
   let price_time = 0;
   let price_dist = 0;
-  let commission = 0
 
   //STEP 1
   rentals.forEach(element => {
@@ -190,10 +189,7 @@ function rental_price(cars, rentals){
     element.price = price;
 
     //STEP 3
-    commission = element.price*(0.3);
-    element.commission.insurance = commission*(0.5);
-    element.commission.treasury = day;
-    element.commission.virtuo = commission - element.commission.treasury - element.commission.insurance;
+    commission(element,day);
 
     //STEP 4
     if (element.options.deductibleReduction) {
@@ -204,10 +200,18 @@ function rental_price(cars, rentals){
   });
 }
 
-rental_price(cars,rentals);
+//STEP 3
+function commission(rental,day){
+  let commission = rental.price*(0.3);
+  rental.commission.insurance = commission*(0.5);
+  rental.commission.treasury = day;
+  rental.commission.virtuo = commission - rental.commission.treasury - rental.commission.insurance;
+}
+
+rental_price();
 console.log(rentals);
 
-function pay_actors(rentals, actors){
+function pay_actors(){
   actors.forEach(actor => {
     for (let i = 0; i < rentals.length; i++) {
       const element = rentals[i];
@@ -242,4 +246,4 @@ function pay_actors(rentals, actors){
   });
 }
 
-pay_actors(rentals,actors);
+pay_actors();
